@@ -5,21 +5,26 @@ export default function FormText(props) {
     const [text, setText] = useState("");
     let handleUpperCaseClick = () => {
         setText(text.toUpperCase());
+        props.handleAlert("Converted to upper case","success")
     }
     let handleLowerCaseClick = () => {
         setText(text.toLowerCase());
+        props.handleAlert("Converted to lower case","success")
     }
     let handleClearTextClick = () => {
         setText("");
+        props.handleAlert("Text has been cleared","success")
     }
     let handleCopyTestClick = () => {
         let selectText = document.getElementById("mybox");
         selectText.select();
         navigator.clipboard.writeText(selectText.value);
+        props.handleAlert("Text has been coppied","success")
     }
     let handleExtraSpaceClick = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "));
+        props.handleAlert("Extra spaces have been removed","success")
     }
     let handleOnChange = (event) => {
         setText(event.target.value);
@@ -33,6 +38,7 @@ export default function FormText(props) {
                 <h2>{props.title}</h2>
                 <div className="mb-3 my-4">
                     <textarea
+                        style={{backgroundColor: props.mode === "dark"?"gray":"white"}}
                         className="form-control"
                         id="mybox"
                         value={text}
